@@ -1,0 +1,118 @@
+INSTRUCCIONES PARA EQUIPO FULLSTACK
+==================================
+
+1. REQUISITOS PREVIOS
+--------------------
+- Docker Desktop instalado
+- Node.js y npm (para desarrollo frontend)
+
+2. EJECUTAR LA API
+-----------------
+a) Instalar Docker Desktop
+b) Abrir terminal y ejecutar:
+   docker build -t housing-api .
+   docker run -p 5000:5000 housing-api
+
+3. ENDPOINTS DISPONIBLES
+-----------------------
+BASE URL: http://localhost:5000
+
+a) Obtener características (GET /features)
+   - URL: http://localhost:5000/features
+   - Método: GET
+   - No requiere body
+
+b) Realizar predicción (POST /predict)
+   - URL: http://localhost:5000/predict
+   - Método: POST
+   - Headers: Content-Type: application/json
+   - Body ejemplo:
+     {
+         "id": 2,
+         "surface": 75,
+         "bedrooms": 2,
+         "restrooms": 1,
+         "rent": 800,
+         "is_province": false
+     }
+
+4. EJEMPLO DE CONSUMO EN REACT
+-----------------------------
+// Obtener características
+const getFeatures = async () => {
+    try {
+        const response = await fetch('http://localhost:5000/features');
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error:', error);
+    }
+};
+
+// Realizar predicción
+const predictPrice = async (houseData) => {
+    try {
+        const response = await fetch('http://localhost:5000/predict', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(houseData)
+        });
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error:', error);
+    }
+};
+
+5. FORMATO DE RESPUESTAS
+-----------------------
+a) GET /features respuesta:
+{
+    "features": ["id", "surface", "bedrooms", "restrooms", "rent", "is_province"],
+    "example_values": {
+        "id": 1,
+        "surface": 100,
+        "bedrooms": 3,
+        "restrooms": 2,
+        "rent": 1000,
+        "is_province": true
+    }
+}
+
+b) POST /predict respuesta exitosa:
+{
+    "success": true,
+    "predicted_price": 1321.25,
+    "input_features": {
+        "id": 2,
+        "surface": 75,
+        "bedrooms": 2,
+        "restrooms": 1,
+        "rent": 800,
+        "is_province": false
+    }
+}
+
+6. MANEJO DE ERRORES
+-------------------
+- La API usa códigos de estado HTTP estándar
+- 400: Error en los datos enviados
+- 500: Error interno del servidor
+- Ejemplo de error:
+  {
+      "success": false,
+      "error": "Faltan características requeridas",
+      "required_features": ["id", "surface", "bedrooms", "restrooms", "rent", "is_province"]
+  }
+
+7. NOTAS IMPORTANTES
+-------------------
+- La API tiene CORS habilitado
+- Todos los campos numéricos deben ser números
+- is_province debe ser booleano (true/false)
+- Las predicciones son en tiempo real
+- El puerto 5000 debe estar disponible
+
+Para cualquier duda o problema, contactar al equipo de Data Science. 
