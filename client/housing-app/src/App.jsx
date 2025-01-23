@@ -44,7 +44,7 @@ function App() {
                     value={inputs.surface}
                     onChange={handleChange}
                 />
-
+                <br />
                 <label htmlFor="bedrooms">Bedrooms:</label>
                 <input
                     type="text"
@@ -53,6 +53,7 @@ function App() {
                     value={inputs.bedrooms}
                     onChange={handleChange}
                 />
+                <br />
 
                 <label htmlFor="restrooms">Restrooms:</label>
                 <input
@@ -62,7 +63,7 @@ function App() {
                     value={inputs.restrooms}
                     onChange={handleChange}
                 />
-
+                <br />
                 <button type="submit">Predict</button>
             </form>
 
