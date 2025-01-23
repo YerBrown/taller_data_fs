@@ -1,0 +1,40 @@
+.animation-container {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.763);
+    transition: opacity 1s ease;
+}
+
+.text-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3rem;
+    font-weight: bold;
+    transition: opacity 1s ease;
+}
+
+.hidden {
+    opacity: 0;
+}
+
+.fade-in {
+    opacity: 1;
+}
+
+.visible {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.fade-out {
+    opacity: 1;
+    pointer-events: all;
+}

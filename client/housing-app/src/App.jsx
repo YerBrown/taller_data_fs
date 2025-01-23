@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import PricePrediction from "./components/PricePrediction";
 function App() {
     const [inputs, setInputs] = useState({
         surface: "",
@@ -17,6 +17,7 @@ function App() {
     };
 
     const handleSubmit = async (e) => {
+        setPrediction(2);
         e.preventDefault();
 
         const response = await fetch("http://localhost:5000/predict", {
@@ -66,7 +67,12 @@ function App() {
                 <button type="submit">Predict</button>
             </form>
 
-            {prediction && <p>Predicted Price: {prediction}</p>}
+            {prediction && (
+                <PricePrediction
+                    prediction={prediction}
+                    onDisable={() => setPrediction(null)}
+                />
+            )}
         </div>
     );
 }
